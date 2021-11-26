@@ -1,16 +1,15 @@
 const Koa = require('koa')
-const Router = require('koa-router')
+const KoaBody = require('koa-body')
 
 require('./db')
-
+const router = require('../router')
+const errorHandle = require('./error-handle')
 const app = new Koa()
-const router = new Router()
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+// 解析请求参数
+app.use(KoaBody())
+router(app)
 
-router.get('/', ctx => {
-  ctx.body = 'ok'
-})
+app.on('error', errorHandle)
 
 module.exports = app
