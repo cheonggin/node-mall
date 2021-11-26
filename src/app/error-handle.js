@@ -2,7 +2,7 @@ module.exports = (error, ctx) => {
   let status
 
   switch (error.code) {
-    case '10001':
+    case '10001' || '10003' || '10004':
       status = 400
       break
     case '10002':

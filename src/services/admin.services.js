@@ -7,7 +7,7 @@ class AdminService {
   }
 
   async getUserInfoByName (admin_name) {
-    const result = await AdminModel.find({ admin_name })
+    const result = await AdminModel.findOne({ admin_name })
     return result
   }
 }
