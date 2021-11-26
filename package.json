@@ -1,0 +1,45 @@
+{
+  "name": "node-mall",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "prepare": "husky install",
+    "commit": "cz"
+  },
+  "lint-staged": {
+    "*.{js}": "eslint --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.1.2",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
