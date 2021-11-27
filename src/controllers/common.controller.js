@@ -46,6 +46,16 @@ class CommonController {
       }
     }
   }
+
+  async getAllInfo (ctx) {
+    const result = await commonService.getList(ctx)
+
+    ctx.body = {
+      code: 0,
+      message: 'success',
+      data: result
+    }
+  }
 }
 
 module.exports = new CommonController()

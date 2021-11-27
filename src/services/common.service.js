@@ -13,6 +13,11 @@ class CommonService {
 
     return result
   }
+
+  async getList (ctx) {
+    const result = await mongoose.model(ctx.Model).find({}, { password: 0 })
+    return result
+  }
 }
 
 module.exports = new CommonService()

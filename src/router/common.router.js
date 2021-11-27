@@ -25,4 +25,7 @@ router.post(
   commonController.login
 )
 
+// 获取所有数据
+router.get('/rest/:resource', setModelName, commonController.getAllInfo)
+
 module.exports = router
