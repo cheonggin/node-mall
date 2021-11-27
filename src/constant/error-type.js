@@ -2,21 +2,21 @@ module.exports = {
   USER_ALREADY_EXISTS: {
     code: '10001',
     message: '用户名已存在',
-    result: ''
+    data: ''
   },
-  USER_REGISTER_ERROR: {
+  CREATE_ERROR: {
     code: '10002',
-    message: '注册错误',
-    result: ''
+    message: '添加失败',
+    data: ''
   },
   USER_DOES_NOT_EXISTS: {
     code: '10003',
     message: '用户不存在',
-    result: ''
+    data: ''
   },
   PASSWORD_IS_INCORRECT: {
     code: '10004',
     message: '密码错误',
-    result: ''
+    data: ''
   }
 }

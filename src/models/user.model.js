@@ -17,14 +17,14 @@ const schema = new mongoose.Schema(
       // 使用bcrypt对密码加密处理
       set: val => bcrypt.hashSync(val, 10)
     },
-    is_admin: {
+    status: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )
 
-const Admin = mongoose.model('Admin', schema)
+const User = mongoose.model('User', schema)
 
-module.exports = Admin
+module.exports = User

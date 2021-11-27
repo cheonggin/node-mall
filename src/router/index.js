@@ -1,6 +1,6 @@
-const adminRouter = require('./admin.router')
+const commonRouter = require('./common.router')
 
 module.exports = app => {
-  app.use(adminRouter.routes())
-  app.use(adminRouter.allowedMethods())
+  app.use(commonRouter.routes())
+  app.use(commonRouter.allowedMethods())
 }

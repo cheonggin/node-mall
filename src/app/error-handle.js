@@ -2,11 +2,17 @@ module.exports = (error, ctx) => {
   let status
 
   switch (error.code) {
-    case '10001' || '10003' || '10004':
-      status = 400
+    case '10001':
+      status = 422
       break
     case '10002':
-      status = 409
+      status = 422
+      break
+    case '10003':
+      status = 401
+      break
+    case '10004':
+      status = 401
       break
     default:
       status = 500
