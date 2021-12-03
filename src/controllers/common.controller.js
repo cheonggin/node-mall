@@ -56,6 +56,34 @@ class CommonController {
       data: result
     }
   }
+
+  async getInfoById (ctx) {
+    const result = await commonService.getInfoById(ctx)
+
+    ctx.body = {
+      code: 0,
+      message: 'success',
+      data: result
+    }
+  }
+
+  async deleteDataById (ctx) {
+    await commonService.deleteDataById(ctx)
+
+    ctx.body = {
+      code: 0,
+      message: 'success'
+    }
+  }
+
+  async updateDataById (ctx) {
+    await commonService.updateDataById(ctx)
+
+    ctx.body = {
+      code: 0,
+      message: 'success'
+    }
+  }
 }
 
 module.exports = new CommonController()

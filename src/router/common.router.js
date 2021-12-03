@@ -28,4 +28,10 @@ router.post(
 // 获取所有数据
 router.get('/rest/:resource', setModelName, commonController.getAllInfo)
 
+// 通过id删除数据
+router.delete('/rest/:resource/:id', setModelName, commonController.deleteDataById)
+
+// 通过id修改数据
+router.patch('/rest/:resource/:id', setModelName, commonController.updateDataById)
+
 module.exports = router

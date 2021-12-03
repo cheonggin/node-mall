@@ -41,6 +41,19 @@ class CommonService {
 
     return { total, list }
   }
+
+  async deleteDataById (ctx) {
+    const { id } = ctx.request.params
+    const result = await mongoose.model(ctx.Model).findByIdAndDelete({ _id: id })
+
+    return result
+  }
+
+  async updateDataById (ctx) {
+    const { id } = ctx.request.params
+    const result = await mongoose.model(ctx.Model).findOneAndUpdate({ _id: id }, { $set: ctx.request.body }, { new: true })
+    console.log(result)
+  }
 }
 
 module.exports = new CommonService()
