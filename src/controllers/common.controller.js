@@ -57,16 +57,6 @@ class CommonController {
     }
   }
 
-  async getInfoById (ctx) {
-    const result = await commonService.getInfoById(ctx)
-
-    ctx.body = {
-      code: 0,
-      message: 'success',
-      data: result
-    }
-  }
-
   async deleteDataById (ctx) {
     await commonService.deleteDataById(ctx)
 

@@ -8,25 +8,23 @@ class CommonService {
   }
 
   async getUserInfoByName (ctx) {
-    const { username } = ctx.request.body
-    const result = await mongoose.model(ctx.Model).findOne({ username })
+    const { name } = ctx.request.body
 
-    return result
+    if (name) {
+      const result = await mongoose.model(ctx.Model).findOne({ name })
+      return result
+    }
   }
 
   async getList (ctx) {
-    const { query, pageSize, currentPage } = ctx.request.query
-
     let queryCriter
+    let { query, pageSize, currentPage } = ctx.request.query
+    pageSize = pageSize || 5
+    currentPage = currentPage || 1
+
     if (query) {
-      if (ctx.Model === 'User' || ctx.Model === 'Admin') {
-        queryCriter = {
-          username: { $regex: query, $options: '$i' }
-        }
-      } else {
-        queryCriter = {
-          name: { $regex: query, $options: '$i' }
-        }
+      queryCriter = {
+        name: { $regex: query, $options: '$i' }
       }
     } else {
       queryCriter = {}
@@ -51,8 +49,7 @@ class CommonService {
 
   async updateDataById (ctx) {
     const { id } = ctx.request.params
-    const result = await mongoose.model(ctx.Model).findOneAndUpdate({ _id: id }, { $set: ctx.request.body }, { new: true })
-    console.log(result)
+    await mongoose.model(ctx.Model).findOneAndUpdate({ _id: id }, { $set: ctx.request.body })
   }
 }
 
