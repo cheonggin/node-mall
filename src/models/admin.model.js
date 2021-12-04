@@ -20,7 +20,8 @@ const schema = new mongoose.Schema(
     is_admin: {
       type: Boolean,
       default: false
-    }
+    },
+    roleId: { type: mongoose.SchemaTypes.ObjectId, ref: 'Role' }
   },
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )

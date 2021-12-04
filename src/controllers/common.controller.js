@@ -30,7 +30,7 @@ class CommonController {
       expiresIn: '30d'
     })
     const userinfo = {
-      username: user.username
+      name: user.name
     }
 
     if (resource === 'admin') {

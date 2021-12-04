@@ -22,6 +22,7 @@ class CommonService {
     pageSize = pageSize || 5
     currentPage = currentPage || 1
 
+    // 如果有搜索查询关键字
     if (query) {
       queryCriter = {
         name: { $regex: query, $options: '$i' }
@@ -30,12 +31,17 @@ class CommonService {
       queryCriter = {}
     }
 
+    const queryOptions = {}
+    if (ctx.Model === 'Admin') {
+      queryOptions.populate = 'roleId'
+    }
+
     const total = await mongoose.model(ctx.Model).find(queryCriter).count()
     const list = await mongoose
       .model(ctx.Model)
       .find(queryCriter, { password: 0 })
       .skip((currentPage - 1) * pageSize)
-      .limit(parseInt(pageSize))
+      .limit(parseInt(pageSize)).setOptions(queryOptions)
 
     return { total, list }
   }
