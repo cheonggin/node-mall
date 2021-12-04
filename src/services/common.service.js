@@ -22,6 +22,9 @@ class CommonService {
     pageSize = pageSize || 5
     currentPage = currentPage || 1
 
+    if (ctx.Model === 'Category') {
+      return this.getCategoryList(ctx)
+    }
     // 如果有搜索查询关键字
     if (query) {
       queryCriter = {
@@ -44,6 +47,43 @@ class CommonService {
       .limit(parseInt(pageSize)).setOptions(queryOptions)
 
     return { total, list }
+  }
+
+  async getCategoryList (ctx) {
+    const parents = await mongoose.model(ctx.Model).find().where({
+      parent: null
+    }).lean()
+
+    for (let i = 0; i < parents.length; i++) {
+      parents[i].children = await mongoose.model(ctx.Model).aggregate([
+        { $match: { parent: parents[i]._id } },
+        {
+          $lookup: {
+            from: 'Category',
+            localField: '_id',
+            foreignField: 'parent',
+            as: 'children'
+          }
+        }
+      ])
+
+      const lenth = parents[i].children.length
+
+      for (let j = 0; j < lenth; j++) {
+        (parents[i].children)[j].children = await mongoose.model(ctx.Model).aggregate([
+          { $match: { parent: (parents[i].children)[j]._id } },
+          {
+            $lookup: {
+              from: 'Category',
+              localField: '_id',
+              foreignField: 'parent',
+              as: 'children'
+            }
+          }
+        ])
+      }
+    }
+    return { list: parents, total: parents.length }
   }
 
   async deleteDataById (ctx) {
