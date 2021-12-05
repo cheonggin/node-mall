@@ -38,6 +38,9 @@ class CommonService {
     if (ctx.Model === 'Admin') {
       queryOptions.populate = 'roleId'
     }
+    if (ctx.Model === 'Good') {
+      queryOptions.populate = 'parent'
+    }
 
     const total = await mongoose.model(ctx.Model).find(queryCriter).count()
     const list = await mongoose

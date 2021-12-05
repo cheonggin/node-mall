@@ -7,8 +7,10 @@ const schema = new mongoose.Schema(
       required: [true, 'name is required'],
       trim: true
     },
+    parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
     link: String,
-    price: Number
+    price: Number,
+    desc: String
   },
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )
