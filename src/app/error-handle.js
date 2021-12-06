@@ -6,6 +6,7 @@ module.exports = (error, ctx) => {
       status = 422
       break
     case '10002':
+      console.log(error.code)
       status = 422
       break
     case '10003':
@@ -17,7 +18,6 @@ module.exports = (error, ctx) => {
     default:
       status = 500
   }
-
   ctx.status = status
   ctx.body = error
   console.error(error)

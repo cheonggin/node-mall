@@ -12,11 +12,9 @@ const schema = new mongoose.Schema(
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )
 
-schema.virtual('children', {
-  localField: '_id',
-  foreignField: 'parent',
-  justOne: false,
-  ref: 'Category'
+schema.pre('find', function (next) {
+  this.populate('parent')
+  next()
 })
 
 const Category = mongoose.model('Category', schema)

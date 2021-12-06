@@ -1,31 +1,17 @@
 const bcrypt = require('bcrypt')
 
-const commonService = require('../services/common.service')
+const adminService = require('../services/admin.service')
 const {
   USER_ALREADY_EXISTS,
   USER_DOES_NOT_EXISTS,
   PASSWORD_IS_INCORRECT
 } = require('../constant/error-type')
 
-// 使用通用CRUD接口时，将对应模型名称挂载到ctx对象上
-const setModelName = async (ctx, next) => {
-  const inflection = require('inflection')
-
-  const { resource } = ctx.params
-  ctx.Model = inflection.classify(resource)
-
-  await next()
-}
-
 // 验证用户是否注册过
 const verifyUser = async (ctx, next) => {
-  const { resource } = ctx.params
-
-  if (resource === 'users' || resource === 'admin') {
-    const user = await commonService.getUserInfoByName(ctx)
-    if (user) {
-      return ctx.app.emit('error', USER_ALREADY_EXISTS, ctx)
-    }
+  const user = await adminService.getUserInfoByName(ctx)
+  if (user) {
+    return ctx.app.emit('error', USER_ALREADY_EXISTS, ctx)
   }
 
   await next()
@@ -35,7 +21,7 @@ const verifyUser = async (ctx, next) => {
 const verifyLogin = async (ctx, next) => {
   const { password } = ctx.request.body
 
-  const user = await commonService.getUserInfoByName(ctx)
+  const user = await adminService.getUserInfoByName(ctx)
   // 用户不存在
   if (!user) {
     return ctx.app.emit('error', USER_DOES_NOT_EXISTS, ctx)
@@ -50,4 +36,4 @@ const verifyLogin = async (ctx, next) => {
   await next()
 }
 
-module.exports = { setModelName, verifyUser, verifyLogin }
+module.exports = { verifyUser, verifyLogin }

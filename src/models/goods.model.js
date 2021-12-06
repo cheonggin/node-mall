@@ -9,12 +9,17 @@ const schema = new mongoose.Schema(
     },
     parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
     link: String,
-    price: Number,
+    price: String,
     desc: String
   },
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )
 
-const Good = mongoose.model('Good', schema)
+schema.pre('find', function (next) {
+  this.populate('parent')
+  next()
+})
 
-module.exports = Good
+const Goods = mongoose.model('Goods', schema)
+
+module.exports = Goods

@@ -26,6 +26,11 @@ const schema = new mongoose.Schema(
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )
 
+schema.pre('find', function (next) {
+  this.populate('roleId')
+  next()
+})
+
 const Admin = mongoose.model('Admin', schema)
 
 module.exports = Admin
