@@ -7,7 +7,11 @@ const schema = new mongoose.Schema(
       required: [true, 'name is required'],
       trim: true
     },
-    desc: String
+    desc: String,
+    permissionList: {
+      checkedKeys: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Menu' }],
+      halfCheckedKeys: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Menu' }]
+    }
   },
   { timestamps: { createdAt: 'created', updatedAt: 'updated' } }
 )

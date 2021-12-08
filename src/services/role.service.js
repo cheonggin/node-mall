@@ -2,8 +2,8 @@ const Role = require('../models/role.model')
 
 class RoleService {
   async create (ctx) {
-    const { name, desc } = ctx.request.body
-    const result = await Role.create({ name, desc })
+    const { name, desc, permissionList } = ctx.request.body
+    const result = await Role.create({ name, desc, permissionList })
 
     return result
   }
@@ -11,10 +11,6 @@ class RoleService {
   async getList (ctx) {
     let queryCriter
     const { query, pageSize, currentPage } = ctx.request.query
-
-    if (!pageSize || !currentPage) {
-      throw new Error('params is incorrect')
-    }
 
     // 如果有搜索查询关键字
     if (query) {
@@ -26,9 +22,9 @@ class RoleService {
     }
 
     const total = await Role.find(queryCriter).count()
-    const list = await Role.find(queryCriter, { password: 0 }).skip((currentPage - 1) * pageSize).limit(parseInt(pageSize))
+    const list = await Role.find(queryCriter).skip((currentPage - 1) * pageSize).limit(parseInt(pageSize))
 
-    return { total, list }
+    return { total, list, page: { pageSize, currentPage } }
   }
 
   async deleteById (ctx) {
