@@ -10,7 +10,7 @@ class MenuService {
 
   async getList (ctx) {
     let queryCriter
-    const { query, pageSize, currentPage } = ctx.request.query
+    const { query } = ctx.request.query
 
     // 如果有搜索查询关键字
     if (query) {
@@ -21,40 +21,11 @@ class MenuService {
       queryCriter = {}
     }
 
-    const total = await Menu.find(queryCriter).where({ parent: null }).lean().count()
-    const parents = await Menu.find(queryCriter).where({ parent: null }).lean().skip((currentPage - 1) * pageSize).limit(parseInt(pageSize))
+    const total = await Menu.find(queryCriter).count()
+    const parents = await Menu.find(queryCriter)
+    const list = getTreeMenu(parents, [], null)
 
-    for (let i = 0; i < parents.length; i++) {
-      parents[i].children = await Menu.aggregate([
-        { $match: { parent: parents[i]._id } },
-        {
-          $lookup: {
-            from: 'Menu',
-            localField: '_id',
-            foreignField: 'parent',
-            as: 'children'
-          }
-        }
-      ])
-
-      const len = parents[i].children.length
-
-      for (let j = 0; j < len; j++) {
-        (parents[i].children)[j].children = await await Menu.aggregate([
-          { $match: { parent: (parents[i].children)[j]._id } },
-          {
-            $lookup: {
-              from: 'Menu',
-              localField: '_id',
-              foreignField: 'parent',
-              as: 'children'
-            }
-          }
-        ])
-      }
-    }
-
-    return { total, list: parents }
+    return { total, list }
   }
 
   async deleteById (ctx) {
@@ -72,6 +43,18 @@ class MenuService {
 
     return result
   }
+}
+
+// 递归拼接树形列表
+function getTreeMenu (data, result, pid) {
+  for (const item of data) {
+    if (String(item.parent.slice().pop()) === String(pid)) {
+      const newItem = { ...item._doc, children: [] }
+      result.push(newItem)
+      getTreeMenu(data, newItem.children, item._id)
+    }
+  }
+  return result
 }
 
 module.exports = new MenuService()
