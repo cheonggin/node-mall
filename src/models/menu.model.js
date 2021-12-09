@@ -7,6 +7,7 @@ const schema = new mongoose.Schema(
       required: [true, 'name is required'],
       trim: true
     },
+    icon: String,
     type: { type: Number, default: 1 }, // 菜单类型，1为菜单，2为按钮
     path: { type: String, trim: true },
     status: { type: Boolean, default: true },
