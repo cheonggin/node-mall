@@ -1,15 +1,16 @@
 const Router = require('koa-router')
 
 const goodsController = require('../controllers/goods.controller')
+const authMiddleware = require('../middleware/auth.middleware')
 
 const router = new Router()
 
-router.post('/goods', goodsController.create)
+router.post('/goods', authMiddleware, goodsController.create)
 
-router.get('/goods/list', goodsController.getList)
+router.get('/goods/list', authMiddleware, goodsController.getList)
 
-router.delete('/goods/:id', goodsController.deleteById)
+router.delete('/goods/:id', authMiddleware, goodsController.deleteById)
 
-router.patch('/goods/:id', goodsController.updateById)
+router.patch('/goods/:id', authMiddleware, goodsController.updateById)
 
 module.exports = router

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const adminService = require('../services/admin.service')
 const menuService = require('../services/menu.service')
 const { CREATE_ERROR } = require('../constant/error-type')
-const { PUBLIC_KEY } = require('../app/config')
+const { PRIVATE_KEY } = require('../app/config')
 
 class AdminController {
   async create (ctx) {
@@ -29,7 +29,8 @@ class AdminController {
     const userMenu = await menuService.getMenuListByRoleId(user.roleId)
 
     // 生成token
-    const token = jwt.sign({ user }, PUBLIC_KEY, {
+    const token = jwt.sign({ user }, PRIVATE_KEY, {
+      algorithm: 'RS256',
       expiresIn: '30d'
     })
 

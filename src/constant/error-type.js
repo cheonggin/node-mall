@@ -18,5 +18,10 @@ module.exports = {
     code: '10004',
     message: '密码错误',
     data: ''
+  },
+  UNAUTHORIZATION: {
+    code: '10005',
+    message: '未授权，请重新登录',
+    data: ''
   }
 }
