@@ -1,4 +1,5 @@
 const Menu = require('../models/menu.model')
+const Role = require('../models/role.model')
 
 class MenuService {
   async create (ctx) {
@@ -42,6 +43,19 @@ class MenuService {
     const result = await Menu.findOneAndUpdate({ _id: id }, { $set: ctx.request.body })
 
     return result
+  }
+
+  async getMenuListByRoleId (roleId) {
+    const [{ permissionList }] = await Role.find({ _id: roleId })
+    const permList = [
+      ...permissionList.checkedKeys,
+      ...permissionList.halfCheckedKeys
+    ]
+
+    const result = await Menu.find({ _id: { $in: permList } }).sort({ _id: -1 })
+    const list = getTreeMenu(result, [], null)
+
+    return list
   }
 }
 

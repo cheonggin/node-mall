@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const adminService = require('../services/admin.service')
+const menuService = require('../services/menu.service')
 const { CREATE_ERROR } = require('../constant/error-type')
 const { PUBLIC_KEY } = require('../app/config')
 
@@ -24,6 +25,8 @@ class AdminController {
     const result = await adminService.getUserInfoByName(ctx)
     // 从返回结果对象中剔除password属性, 将剩下的属性放到user对象
     const { password, ...user } = result._doc
+    // 获取对应角色菜单
+    const userMenu = await menuService.getMenuListByRoleId(user.roleId)
 
     // 生成token
     const token = jwt.sign({ user }, PUBLIC_KEY, {
@@ -35,7 +38,8 @@ class AdminController {
       message: '登录成功',
       data: {
         token,
-        userinfo: user
+        userinfo: user,
+        userMenu
       }
     }
   }
