@@ -8,6 +8,7 @@ const schema = new mongoose.Schema(
       trim: true
     },
     icon: String,
+    component: String, // 组件名称
     type: { type: Number, default: 1 }, // 菜单类型，1为菜单，2为按钮
     path: { type: String, trim: true },
     status: { type: Boolean, default: true },
