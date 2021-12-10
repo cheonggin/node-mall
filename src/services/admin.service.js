@@ -38,7 +38,7 @@ class AdminService {
   async deleteById (ctx) {
     const { id } = ctx.request.params
 
-    const result = await Admin.remove({ _id: id })
+    const result = await Admin.findOneAndDelete({ _id: id })
 
     return result
   }

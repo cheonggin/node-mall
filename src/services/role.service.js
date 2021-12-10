@@ -30,7 +30,7 @@ class RoleService {
   async deleteById (ctx) {
     const { id } = ctx.request.params
 
-    const result = await Role.remove({ _id: id })
+    const result = await Role.findOneAndDelete({ _id: id })
 
     return result
   }

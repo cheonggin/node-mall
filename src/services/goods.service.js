@@ -34,7 +34,7 @@ class GoodsService {
   async deleteById (ctx) {
     const { id } = ctx.request.params
 
-    const result = await Goods.remove({ _id: id })
+    const result = await Goods.findOneAndDelete({ _id: id })
 
     return result
   }
