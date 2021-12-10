@@ -3,8 +3,8 @@ const Role = require('../models/role.model')
 
 class MenuService {
   async create (ctx) {
-    const { name, type, path, status, parent, component, icon } = ctx.request.body
-    const result = await Menu.create({ name, type, path, status, parent, component, icon })
+    const { name, type, path, status, parent, component, icon, menuCode } = ctx.request.body
+    const result = await Menu.create({ name, type, path, status, parent, component, icon, menuCode })
 
     return result
   }
