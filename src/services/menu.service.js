@@ -24,9 +24,8 @@ class MenuService {
 
     const total = await Menu.find(queryCriter).count()
     const parents = await Menu.find(queryCriter)
-    const list = getTreeMenu(parents, [], null)
 
-    return { total, list }
+    return { total, list: parents }
   }
 
   async deleteById (ctx) {
@@ -52,23 +51,10 @@ class MenuService {
       ...permissionList.halfCheckedKeys
     ]
 
-    const result = await Menu.find({ _id: { $in: permList } }).sort({ _id: -1 })
-    const list = getTreeMenu(result, [], null)
+    const result = await Menu.find({ _id: { $in: permList } })
 
-    return list
+    return result
   }
-}
-
-// 递归拼接树形列表
-function getTreeMenu (data, result, pid) {
-  for (const item of data) {
-    if (String(item.parent.slice().pop()) === String(pid)) {
-      const newItem = { ...item._doc, children: [] }
-      result.push(newItem)
-      getTreeMenu(data, newItem.children, item._id)
-    }
-  }
-  return result
 }
 
 module.exports = new MenuService()
