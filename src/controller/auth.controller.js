@@ -7,7 +7,7 @@ class AuthController {
 
     // 生成token并返回
     const token = jwt.sign({ id, name }, PRIVATE_KEY, {
-      expiresIn: '10000',
+      expiresIn: '1d',
       algorithm: 'RS256'
     })
 
