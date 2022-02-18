@@ -10,5 +10,13 @@ module.exports = {
   userRegisterError: {
     code: 10003,
     message: '用户注册失败，请检查传入参数'
+  },
+  userDoesNotExists: {
+    code: 10004,
+    message: '用户不存在'
+  },
+  passwordIsIncorrect: {
+    code: 10005,
+    message: '密码错误'
   }
 }
