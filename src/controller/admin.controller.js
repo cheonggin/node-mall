@@ -19,6 +19,13 @@ class AdminController {
 
     ctx.body = result
   }
+
+  async deleteById(ctx, next) {
+    const { id } = ctx.params
+    const result = await adminService.deleteById(id)
+
+    ctx.body = result
+  }
 }
 
 module.exports = new AdminController()

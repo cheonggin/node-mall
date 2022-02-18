@@ -22,6 +22,13 @@ class AdminService {
 
     return result
   }
+
+  async deleteById(id) {
+    const statement = `DELETE FROM admin WHERE id = ?;`
+    const [result] = await connect.execute(statement, [id])
+
+    return result
+  }
 }
 
 module.exports = new AdminService()
