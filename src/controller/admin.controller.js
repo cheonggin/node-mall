@@ -12,6 +12,13 @@ class AdminController {
       ctx.utils.assert('', 400, errorTypes.userRegisterError)
     }
   }
+
+  async getList(ctx, next) {
+    const { offset, limit } = ctx.query
+    const result = await adminService.getList(offset, limit)
+
+    ctx.body = result
+  }
 }
 
 module.exports = new AdminController()

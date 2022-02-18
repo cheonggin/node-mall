@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const adminService = require('../service/admin.service')
 const errorTypes = require('../constant/error-types')
+const { PUBLIC_KEY } = require('../app/config')
 
 const verifyLogin = async (ctx, next) => {
   const { name, password } = ctx.request.body
@@ -21,4 +23,24 @@ const verifyLogin = async (ctx, next) => {
   await next()
 }
 
-module.exports = { verifyLogin }
+// token验证
+const verifyAuth = async (ctx, next) => {
+  const { authorization } = ctx.headers
+
+  ctx.utils.assert(authorization, 401, errorTypes.tokenExpiredError)
+
+  const token = authorization.split(' ').pop()
+
+  try {
+    const result = jwt.verify(token, PUBLIC_KEY, {
+      algorithms: ['RS256']
+    })
+    ctx.user = result
+  } catch (error) {
+    ctx.utils.assert('', 401, errorTypes.tokenExpiredError)
+  }
+
+  await next()
+}
+
+module.exports = { verifyLogin, verifyAuth }
