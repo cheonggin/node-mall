@@ -8,5 +8,5 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  rules: { 'no-undef': 'off' }
+  rules: { 'no-undef': 'off', camelcase: 'off' }
 }
