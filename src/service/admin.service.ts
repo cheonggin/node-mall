@@ -20,6 +20,16 @@ class AdminService {
 
     return result
   }
+
+  public async getList(offset: string, limit: string) {
+    const statement = `SELECT id, name, create_at, update_at FROM admin LIMIT ?, ?;`
+    const [result] = await connect.execute<IAdminDataType[]>(statement, [
+      offset,
+      limit
+    ])
+
+    return result
+  }
 }
 
 export default new AdminService()

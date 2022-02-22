@@ -1,5 +1,5 @@
 import type { Context } from 'koa'
-import type { IAdmin } from '../types/admin.types'
+import type { IAdmin, IAdminListParams } from '../types/admin.types'
 
 import errorTypes from '../constant/error-types'
 import adminService from '../service/admin.service'
@@ -17,6 +17,22 @@ class AdminController {
       ctx.body = result
     } catch (error) {
       ctx.assert('', 401, errorTypes.userRegisterError)
+    }
+  }
+
+  /**
+   * 获取管理员列表
+   * @param ctx
+   */
+  public async getList(ctx: Context) {
+    const { offset, limit } = ctx.request.query as IAdminListParams
+
+    try {
+      const result = await adminService.getList(offset, limit)
+
+      ctx.body = result
+    } catch (error) {
+      console.log(error)
     }
   }
 }

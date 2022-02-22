@@ -1,10 +1,12 @@
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 import type { Context, Next } from 'koa'
 import type { IAdmin, IAdminDataType } from '../types/admin.types'
 
 import errorTypes from '../constant/error-types'
 import adminService from '../service/admin.service'
+import config from '../app/config'
 
 export const verifyLogin = async (ctx: Context, next: Next) => {
   const { name, password }: IAdmin = ctx.request.body
@@ -23,4 +25,22 @@ export const verifyLogin = async (ctx: Context, next: Next) => {
   ctx.assert(isValid, 400, errorTypes.passwordIsIncorrect)
 
   await next()
+}
+
+export const verifyAuth = async (ctx: Context, next: Next) => {
+  const { authorization } = ctx.request.headers
+  const token = authorization.split(' ').pop()
+
+  ctx.assert(token, 401, errorTypes.tokenExpiredError)
+
+  try {
+    const result = jwt.verify(token, config.PUBLIC_KEY, {
+      algorithms: ['RS256']
+    })
+
+    ctx.user = result
+    await next()
+  } catch (error) {
+    ctx.assert('', 401, errorTypes.tokenExpiredError)
+  }
 }

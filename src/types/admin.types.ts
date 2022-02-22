@@ -1,4 +1,5 @@
 import type { RowDataPacket } from 'mysql2'
+import type { ParsedUrlQuery } from 'querystring'
 
 export interface IAdmin {
   name: string
@@ -11,4 +12,9 @@ export interface IAdminDataType extends RowDataPacket {
   password: string
   create_at: Date
   update_at: Date
+}
+
+export interface IAdminListParams extends ParsedUrlQuery {
+  offset: string
+  limit: string
 }

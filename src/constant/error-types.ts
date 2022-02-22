@@ -18,5 +18,9 @@ export default {
   passwordIsIncorrect: {
     code: 10005,
     message: '密码错误'
+  },
+  tokenExpiredError: {
+    code: 10006,
+    message: '未授权，请重新登录'
   }
 }
