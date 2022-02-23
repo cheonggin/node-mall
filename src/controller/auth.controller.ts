@@ -15,7 +15,7 @@ class AuthController {
     // 生成token并返回
     const token = jwt.sign({ id, name }, config.PRIVATE_KEY, {
       algorithm: 'RS256',
-      expiresIn: '10000'
+      expiresIn: '1d'
     })
 
     ctx.body = {
