@@ -17,6 +17,12 @@ class MenuController {
 
     ctx.body = result
   }
+
+  public async getList(ctx: Context) {
+    const result = await menuService.getList()
+
+    ctx.body = result
+  }
 }
 
 export default new MenuController()

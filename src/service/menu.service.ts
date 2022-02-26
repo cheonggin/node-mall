@@ -23,6 +23,17 @@ class MenuService {
 
     return result
   }
+
+  /**
+   * 获取菜单列表
+   * @returns
+   */
+  public async getList() {
+    const statement = `SELECT * FROM menu;`
+    const [result] = await connect.execute<IMenuDataType[]>(statement)
+
+    return result
+  }
 }
 
 export default new MenuService()
