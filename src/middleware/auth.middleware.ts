@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import type { Context, Next } from 'koa'
-import type { IAdmin, IAdminDataType } from '../types/admin.types'
+import { Context, Next } from 'koa'
+import { IAdmin, IAdminDataType } from '../types/admin.types'
 
 import errorTypes from '../constant/error-types'
 import adminService from '../service/admin.service'
@@ -29,6 +29,8 @@ export const verifyLogin = async (ctx: Context, next: Next) => {
 
 export const verifyAuth = async (ctx: Context, next: Next) => {
   const { authorization } = ctx.request.headers
+  ctx.assert(authorization, 401, errorTypes.tokenExpiredError)
+
   const token = authorization.split(' ').pop()
 
   ctx.assert(token, 401, errorTypes.tokenExpiredError)
