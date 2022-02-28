@@ -1,8 +1,9 @@
 import type { Context } from 'koa'
-import type { IAdmin, IAdminListParams } from '../types/admin.types'
+import type { AdminAttributes } from '../types/admin.types'
+import type { ListAttributes } from '../types'
 
-import errorTypes from '../constant/error-types'
 import adminService from '../service/admin.service'
+import errorTypes from '../constant/error-types'
 
 class AdminController {
   /**
@@ -10,13 +11,18 @@ class AdminController {
    * @param ctx
    */
   public async create(ctx: Context) {
-    const user: IAdmin = ctx.request.body
+    const user = ctx.request.body as AdminAttributes
 
     try {
-      const result = await adminService.create(user)
-      ctx.body = result
+      await adminService.create(user)
+
+      ctx.body = 'ok'
     } catch (error) {
-      ctx.assert('', 401, errorTypes.userRegisterError)
+      ctx.app.emit(
+        'error',
+        { ...errorTypes.paramsError, message: error.message },
+        ctx
+      )
     }
   }
 
@@ -25,14 +31,18 @@ class AdminController {
    * @param ctx
    */
   public async getList(ctx: Context) {
-    const { offset, limit } = ctx.request.query as IAdminListParams
+    const listParams = ctx.request.query as ListAttributes
 
     try {
-      const result = await adminService.getList(offset, limit)
+      const result = await adminService.getList(listParams)
 
       ctx.body = result
     } catch (error) {
-      console.log(error)
+      ctx.app.emit(
+        'error',
+        { ...errorTypes.paramsError, message: error.message },
+        ctx
+      )
     }
   }
 }

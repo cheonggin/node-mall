@@ -1,32 +1,38 @@
-import type { IAdmin, IAdminDataType } from '../types/admin.types'
+import { Op } from 'sequelize'
 
-import connect from '../app/database'
+import Admin from '../model/admin.model'
+import { AdminAttributes } from '../types/admin.types'
+import type { ListAttributes } from '../types'
 
 class AdminService {
   public async findAdminByName(name: string) {
-    const statement = `SELECT * FROM admin WHERE name = ?;`
-    const [result] = await connect.execute<IAdminDataType[]>(statement, [name])
+    const result = await Admin.findAll({
+      raw: true,
+      where: { name }
+    })
 
     return result
   }
 
-  public async create(user: IAdmin) {
-    const { name, password } = user
-    const statement = `INSERT INTO admin (name, password) VALUES (?, ?);`
-    const [result] = await connect.execute<IAdminDataType[]>(statement, [
-      name,
-      password
-    ])
+  public async create(user: AdminAttributes) {
+    const result = await Admin.create(user, {
+      raw: true
+    })
 
     return result
   }
 
-  public async getList(offset: string, limit: string) {
-    const statement = `SELECT id, name, create_at, update_at FROM admin LIMIT ?, ?;`
-    const [result] = await connect.execute<IAdminDataType[]>(statement, [
-      offset,
-      limit
-    ])
+  public async getList(opt: ListAttributes) {
+    const result = await Admin.findAndCountAll({
+      where: {
+        name: {
+          [Op.like]: `%${opt.query}%`
+        }
+      },
+      offset: parseInt(opt.offset),
+      limit: parseInt(opt.limit),
+      attributes: { exclude: ['password'] }
+    })
 
     return result
   }

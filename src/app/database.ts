@@ -1,20 +1,30 @@
-import mysql from 'mysql2'
+import { Sequelize } from 'sequelize'
 
 import config from './config'
 
-const connect = mysql.createPool({
+const sequelize = new Sequelize({
   host: config.DB_HOST,
-  user: config.DB_USER,
+  username: config.DB_USER,
   password: config.DB_PASSWORD,
-  database: config.DB_DATABASE
-})
-
-connect.getConnection((err: NodeJS.ErrnoException) => {
-  if (err) {
-    console.log('数据库连接失败')
-  } else {
-    console.log('数据库连接成功')
+  database: config.DB_DATABASE,
+  dialect: 'mysql',
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
+  define: {
+    freezeTableName: true,
+    timestamps: true,
+    createdAt: 'create_at',
+    updatedAt: 'update_at'
   }
 })
 
-export default connect.promise()
+sequelize
+  .authenticate()
+  .then(() => console.log('数据库连接成功'))
+  .catch(() => console.log('数据库连接失败'))
+
+export default sequelize

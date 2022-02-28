@@ -1,20 +1,14 @@
-import type { RowDataPacket } from 'mysql2'
-import type { ParsedUrlQuery } from 'querystring'
+import type { Model, Optional } from 'sequelize'
 
-export interface IAdmin {
+export interface AdminAttributes {
   name: string
   password: string
 }
 
-export interface IAdminDataType extends RowDataPacket {
+interface AdminCreationAttributes extends Optional<AdminAttributes, 'name'> {}
+
+export interface AdminInstance
+  extends Model<AdminAttributes, AdminCreationAttributes>,
+    AdminAttributes {
   id: number
-  name: string
-  password: string
-  create_at: Date
-  update_at: Date
-}
-
-export interface IAdminListParams extends ParsedUrlQuery {
-  offset: string
-  limit: string
 }

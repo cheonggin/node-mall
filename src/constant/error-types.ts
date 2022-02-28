@@ -7,9 +7,9 @@ export default {
     code: 10002,
     message: '用户已存在'
   },
-  userRegisterError: {
+  paramsError: {
     code: 10003,
-    message: '用户注册失败，请检查传入参数'
+    message: '添加失败，请检查传入参数'
   },
   userDoesNotExists: {
     code: 10004,

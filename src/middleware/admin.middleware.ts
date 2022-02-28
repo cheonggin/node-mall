@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt'
 
 import type { Context, Next } from 'koa'
-import type { IAdmin } from '../types/admin.types'
+import type { AdminAttributes } from '../types/admin.types'
 
 import errorTypes from '../constant/error-types'
 import adminService from '../service/admin.service'
 
 export const verifyAdmin = async (ctx: Context, next: Next) => {
-  const { name, password }: IAdmin = ctx.request.body
+  const { name, password } = ctx.request.body as AdminAttributes
 
   ctx.assert(name, 400, errorTypes.userFormatError)
   ctx.assert(password, 400, errorTypes.userFormatError)
@@ -21,7 +21,7 @@ export const verifyAdmin = async (ctx: Context, next: Next) => {
 
 // 对密码加密处理
 export const passwordHandler = async (ctx: Context, next: Next) => {
-  const { password }: IAdmin = ctx.request.body
+  const { password } = ctx.request.body as AdminAttributes
   const hashPassword = bcrypt.hashSync(password, 8)
 
   ctx.request.body.password = hashPassword
