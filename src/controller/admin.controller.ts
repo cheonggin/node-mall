@@ -47,13 +47,14 @@ class AdminController {
   }
 
   /**
-   * 修改管理员名称
+   * 修改管理员信息，仅提供修改名称与角色，不提供修改密码
    * @param ctx
    */
   public async updateNameById(ctx: Context) {
     const id = ctx.params.id as number
     const name = ctx.request.body.name as string
-    await adminService.updateNameById(id, name)
+    const role_id = ctx.request.body.role_id as number
+    await adminService.updateNameById(id, name, role_id)
 
     ctx.body = 'ok'
   }

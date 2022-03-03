@@ -1,7 +1,9 @@
 import { Op } from 'sequelize'
 
 import Admin from '../model/admin.model'
-import { AdminAttributes } from '../types/admin.types'
+import Role from '../model/role.model'
+
+import type { AdminAttributes } from '../types/admin.types'
 import type { ListAttributes } from '../types'
 
 class AdminService {
@@ -31,15 +33,16 @@ class AdminService {
       },
       offset: parseInt(opt.offset),
       limit: parseInt(opt.limit),
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
+      include: { model: Role }
     })
 
     return result
   }
 
-  public async updateNameById(id: number, name: string) {
+  public async updateNameById(id: number, name: string, role_id: number) {
     const result = await Admin.update(
-      { name },
+      { name, role_id },
       {
         where: { id }
       }

@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 
 import sequelize from '../app/database'
+import Role from './role.model'
 
 import type { AdminInstance } from '../types/admin.types'
 
@@ -15,7 +16,12 @@ const Admin = sequelize.define<AdminInstance>('admin', {
     type: DataTypes.STRING,
     allowNull: false,
     comment: '密码'
+  },
+  role_id: {
+    type: DataTypes.INTEGER
   }
 })
+
+Admin.belongsTo(Role, { foreignKey: 'role_id' })
 
 export default Admin

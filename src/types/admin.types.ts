@@ -4,6 +4,7 @@ export interface AdminAttributes {
   id?: number
   name: string
   password: string
+  role_id: number
 }
 
 interface AdminCreationAttributes extends Optional<AdminAttributes, 'name'> {}
