@@ -45,6 +45,29 @@ class AdminController {
       )
     }
   }
+
+  /**
+   * 修改管理员名称
+   * @param ctx
+   */
+  public async updateNameById(ctx: Context) {
+    const id = ctx.params.id as number
+    const name = ctx.request.body.name as string
+    await adminService.updateNameById(id, name)
+
+    ctx.body = 'ok'
+  }
+
+  /**
+   * 通过id删除管理员
+   * @param ctx
+   */
+  public async deleteById(ctx: Context) {
+    const id = ctx.params.id as number
+    await adminService.deleteById(id)
+
+    ctx.body = 'ok'
+  }
 }
 
 export default new AdminController()

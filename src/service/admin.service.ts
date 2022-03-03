@@ -36,6 +36,23 @@ class AdminService {
 
     return result
   }
+
+  public async updateNameById(id: number, name: string) {
+    const result = await Admin.update(
+      { name },
+      {
+        where: { id }
+      }
+    )
+
+    return result
+  }
+
+  public async deleteById(id: number) {
+    const result = await Admin.destroy({ where: { id } })
+
+    return result
+  }
 }
 
 export default new AdminService()
