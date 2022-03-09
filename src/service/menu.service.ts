@@ -18,10 +18,23 @@ class MenuService {
         name: {
           [Op.like]: `%${opt.query}%`
         }
-      },
-      offset: parseInt(opt.offset),
-      limit: parseInt(opt.limit)
+      }
     })
+
+    return result
+  }
+
+  public async updateById(id: number, opt: MenuAttributes) {
+    const result = await Menu.update(opt, { where: { id } })
+
+    return result
+  }
+
+  public async deleteById(id: number) {
+    const result = await Menu.destroy({
+      where: { id }
+    })
+    await Menu.destroy({ where: { pid: id } })
 
     return result
   }

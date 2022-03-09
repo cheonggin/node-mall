@@ -12,7 +12,7 @@ class MenuController {
    */
   public async create(ctx: Context) {
     const menuParams = ctx.request.body as MenuAttributes
-
+    console.log(menuParams)
     try {
       await menuService.create(menuParams)
 
@@ -26,6 +26,10 @@ class MenuController {
     }
   }
 
+  /**
+   * 获取菜单列表
+   * @param ctx
+   */
   public async getList(ctx: Context) {
     const listParams = ctx.request.query as ListAttributes
 
@@ -39,6 +43,30 @@ class MenuController {
         { ...errorTypes.paramsError, message: error.message },
         ctx
       )
+    }
+  }
+
+  /**
+   * 通过id修改数据
+   * @param ctx
+   */
+  public async updateById(ctx: Context) {
+    const id = ctx.params.id as number
+    const updateData = ctx.request.body as MenuAttributes
+
+    await menuService.updateById(id, updateData)
+
+    ctx.body = 'ok'
+  }
+
+  public async deleteById(ctx: Context) {
+    const id = ctx.params.id as number
+
+    try {
+      await menuService.deleteById(id)
+      ctx.body = 'ok'
+    } catch (error) {
+      console.log(error)
     }
   }
 }

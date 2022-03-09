@@ -9,5 +9,7 @@ const menuRouter = new Router<DefaultState, Context>({ prefix: '/menu' })
 
 menuRouter.post('/', verifyAuth, menuController.create)
 menuRouter.get('/', verifyAuth, menuController.getList)
+menuRouter.put('/:id', verifyAuth, menuController.updateById)
+menuRouter.delete('/:id', verifyAuth, menuController.deleteById)
 
 export default menuRouter
