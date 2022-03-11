@@ -12,7 +12,7 @@ class RoleController {
    */
   public async create(ctx: Context) {
     const roleParams = ctx.request.body as RoleAttributes
-
+    console.log(roleParams)
     try {
       await roleService.create(roleParams)
 
@@ -44,6 +44,23 @@ class RoleController {
         ctx
       )
     }
+  }
+
+  public async updateById(ctx: Context) {
+    const id = ctx.params.id as number
+    const updateData = ctx.request.body as RoleAttributes
+
+    await roleService.updateById(id, updateData)
+
+    ctx.body = 'ok'
+  }
+
+  public async deleteById(ctx: Context) {
+    const id = ctx.params.id as number
+
+    await roleService.deleteById(id)
+
+    ctx.body = 'ok'
   }
 }
 

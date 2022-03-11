@@ -9,5 +9,7 @@ const roleRouter = new Router<DefaultState, Context>({ prefix: '/role' })
 
 roleRouter.post('/', verifyAuth, roleController.create)
 roleRouter.get('/', verifyAuth, roleController.getList)
+roleRouter.put('/:id', verifyAuth, roleController.updateById)
+roleRouter.delete('/:id', verifyAuth, roleController.deleteById)
 
 export default roleRouter

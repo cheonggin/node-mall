@@ -25,6 +25,18 @@ class RoleService {
 
     return result
   }
+
+  public async updateById(id: number, opt: RoleAttributes) {
+    const result = await Role.update(opt, { where: { id } })
+
+    return result
+  }
+
+  public async deleteById(id: number) {
+    const result = await Role.destroy({ where: { id } })
+
+    return result
+  }
 }
 
 export default new RoleService()
