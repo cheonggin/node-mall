@@ -11,5 +11,6 @@ roleRouter.post('/', verifyAuth, roleController.create)
 roleRouter.get('/', verifyAuth, roleController.getList)
 roleRouter.put('/:id', verifyAuth, roleController.updateById)
 roleRouter.delete('/:id', verifyAuth, roleController.deleteById)
+roleRouter.get('/:id', verifyAuth, roleController.getPermissionById)
 
 export default roleRouter

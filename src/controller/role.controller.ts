@@ -62,6 +62,13 @@ class RoleController {
 
     ctx.body = 'ok'
   }
+
+  public async getPermissionById(ctx: Context) {
+    const id = ctx.params.id as number
+    const result = await roleService.getPermissionById(id)
+
+    ctx.body = result
+  }
 }
 
 export default new RoleController()

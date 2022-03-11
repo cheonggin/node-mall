@@ -10,7 +10,7 @@ class AuthController {
   public async adminLogin(ctx: Context) {
     const { name } = ctx.request.body as AdminAttributes
     const result = await adminService.findAdminByName(name)
-    const { id } = result[0]
+    const { id, role_id } = result[0]
 
     // 生成token并返回
     const token = jwt.sign({ id, name }, config.PRIVATE_KEY, {
@@ -20,7 +20,7 @@ class AuthController {
 
     ctx.body = {
       token,
-      user: { id, name }
+      user: { id, name, role_id }
     }
   }
 }

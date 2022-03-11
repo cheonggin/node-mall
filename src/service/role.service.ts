@@ -4,6 +4,7 @@ import Role from '../model/role.model'
 
 import type { RoleAttributes } from '../types/role.types'
 import type { ListAttributes } from '../types'
+import Menu from '../model/menu.model'
 
 class RoleService {
   public async create(roleParams: RoleAttributes) {
@@ -34,6 +35,21 @@ class RoleService {
 
   public async deleteById(id: number) {
     const result = await Role.destroy({ where: { id } })
+
+    return result
+  }
+
+  public async getPermissionById(id: number) {
+    const roleResult = await Role.findOne({ where: { id } })
+
+    const { checkedKeys, halfCheckedKeys } = roleResult
+    const result = await Menu.findAll({
+      where: {
+        id: {
+          [Op.in]: [...checkedKeys, ...halfCheckedKeys]
+        }
+      }
+    })
 
     return result
   }
