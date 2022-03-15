@@ -5,13 +5,15 @@ import authRouter from './auth.router'
 import menuRouter from './menu.router'
 import roleRouter from './role.router'
 import categoryRouter from './category.router'
+import goodsRouter from './goods.router'
 
 const routers = [
   adminRouter,
   authRouter,
   menuRouter,
   roleRouter,
-  categoryRouter
+  categoryRouter,
+  goodsRouter
 ]
 
 export default (app: Koa) => {
