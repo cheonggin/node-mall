@@ -32,7 +32,7 @@ class CategoryController {
    */
   public async getList(ctx: Context) {
     const listParams = ctx.request.query as ListAttributes
-    console.log(1)
+
     try {
       const result = await categoryService.getList(listParams)
 
@@ -68,6 +68,19 @@ class CategoryController {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  public async getCategoryList(ctx: Context) {
+    const result = await categoryService.getCategoryList()
+
+    ctx.body = result
+  }
+
+  public async getSubCategoryList(ctx: Context) {
+    const id = ctx.params.id as number
+    const result = await categoryService.getSubCategoryList(id)
+
+    ctx.body = result
   }
 }
 

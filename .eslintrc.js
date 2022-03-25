@@ -12,6 +12,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'no-undef': 'off',
-    camelcase: 'off'
+    camelcase: 'off',
+    'array-callback-return': 'off'
   }
 }

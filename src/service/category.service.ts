@@ -1,13 +1,13 @@
 import { Op } from 'sequelize'
 
 import Category from '../model/category.model'
+import CategoryProduct from '../model/category_product.model'
 
 import type { CategoryAttributes } from '../types/category.types'
 import type { ListAttributes } from '../types'
 
 class CategoryService {
   public async create(opt: CategoryAttributes) {
-    console.log(opt)
     const result = await Category.create(opt)
 
     return result
@@ -38,6 +38,35 @@ class CategoryService {
     await Category.destroy({ where: { pid: id } })
 
     return result
+  }
+
+  public async getCategoryList() {
+    const result = await Category.findAll({
+      where: {
+        pid: null
+      },
+      attributes: { exclude: ['pid'] }
+    })
+
+    return result
+  }
+
+  public async getSubCategoryList(id: number) {
+    const subCategory = await Category.findAll({
+      where: {
+        pid: id
+      },
+      attributes: { exclude: ['pid'] },
+      include: { model: CategoryProduct }
+    })
+    const category = await Category.findOne({
+      where: {
+        id
+      },
+      attributes: { exclude: ['pid'] }
+    })
+
+    return { category, subCategory }
   }
 }
 
