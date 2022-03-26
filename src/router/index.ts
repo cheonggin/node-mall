@@ -8,6 +8,7 @@ import categoryRouter from './category.router'
 import goodsRouter from './goods.router'
 import homeRouter from './home.router'
 import webCategoryRouter from './web_category.router'
+import keywordRouter from './keyword.router'
 
 const routers = [
   adminRouter,
@@ -17,7 +18,8 @@ const routers = [
   categoryRouter,
   goodsRouter,
   homeRouter,
-  webCategoryRouter
+  webCategoryRouter,
+  keywordRouter
 ]
 
 export default (app: Koa) => {
