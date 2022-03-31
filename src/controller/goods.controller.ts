@@ -32,6 +32,10 @@ class GoodsController {
    */
   public async getList(ctx: Context) {
     const listParams = ctx.request.query as ListAttributes
+    if (listParams.query === '全部商品') {
+      listParams.query = ''
+    }
+
     try {
       const result = await goodsService.getList(listParams)
 

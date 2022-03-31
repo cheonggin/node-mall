@@ -20,7 +20,8 @@ class GoodsService {
         }
       },
       offset: parseInt(opt.offset),
-      limit: parseInt(opt.limit)
+      limit: parseInt(opt.limit),
+      attributes: { exclude: ['create_at', 'update_at'] }
     })
 
     return result
