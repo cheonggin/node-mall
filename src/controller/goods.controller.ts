@@ -7,7 +7,7 @@ import errorTypes from '../constant/error-types'
 
 class GoodsController {
   /**
-   * 添加菜单
+   * 添加
    * @param ctx
    */
   public async create(ctx: Context) {
@@ -27,7 +27,7 @@ class GoodsController {
   }
 
   /**
-   * 获取菜单列表
+   * 获取列表
    * @param ctx
    */
   public async getList(ctx: Context) {
@@ -71,6 +71,17 @@ class GoodsController {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  /**
+   * 获取商品详情
+   */
+  public async getGoodsInfoList(ctx: Context) {
+    const id = parseInt(ctx.params.id)
+
+    const result = await goodsService.getGoodsInfoList(id)
+
+    ctx.body = result
   }
 }
 

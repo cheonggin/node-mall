@@ -1,9 +1,13 @@
 import { Op } from 'sequelize'
 
 import Goods from '../model/goods.model'
+import GoodsInfo from '../model/goods_info.model'
+import GoodsInfoBanner from '../model/goods_info_banner.model'
+import GoodsInfoTab from '../model/goods_info_tab.model'
+import GoodsInfoComment from '../model/goods_info_comment.model'
 
-import type { GoodsAttributes } from '../types/goods.types'
-import type { ListAttributes } from '../types'
+import { GoodsAttributes } from '../types/goods.types'
+import { ListAttributes } from '../types'
 
 class GoodsService {
   public async create(opt: GoodsAttributes) {
@@ -39,6 +43,32 @@ class GoodsService {
     })
 
     return result
+  }
+
+  public async getGoodsInfoList(id: number) {
+    const banner = await GoodsInfoBanner.findAll({
+      where: { product_id: id },
+      attributes: { exclude: ['create_at', 'update_at', 'product_id'] }
+    })
+
+    const goodsInfoData = await GoodsInfo.findOne({
+      where: { product_id: id },
+      attributes: { exclude: ['create_at', 'update_at'] }
+    })
+
+    const comment = await GoodsInfoComment.findOne({
+      where: { product_id: id },
+      attributes: {
+        exclude: ['create_at', 'update_at', 'id']
+      }
+    })
+
+    const tabs = await GoodsInfoTab.findAll({
+      where: { product_id: id },
+      attributes: { exclude: ['create_at', 'update_at', 'product_id'] }
+    })
+
+    return { banner, goodsInfoData, comment, tabs }
   }
 }
 

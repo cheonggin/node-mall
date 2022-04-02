@@ -9,5 +9,6 @@ const webGoodsRouter = new Router<DefaultState, Context>({
 })
 
 webGoodsRouter.get('/', goodsController.getList)
+webGoodsRouter.get('/:id', goodsController.getGoodsInfoList)
 
 export default webGoodsRouter
