@@ -1,5 +1,6 @@
 import { HttpExceptionFilter } from '@libs/common/filter/http-exception.filter'
 import { WrapResponse } from '@libs/common/interceptors/wrap-response.interceptor.interceptor'
+import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { MangementModule } from './mangement.module'
@@ -14,6 +15,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options)
 
   SwaggerModule.setup('api-docs', app, document)
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }))
   app.useGlobalFilters(new HttpExceptionFilter())
   app.useGlobalInterceptors(new WrapResponse())
   await app.listen(PORT)

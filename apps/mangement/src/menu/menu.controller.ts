@@ -23,6 +23,7 @@ export class MenuController {
   @ApiOperation({ summary: '添加路由菜单' })
   async create(@Body() createMenuDto: CreateMenuDto) {
     await this.menuService.create(createMenuDto)
+    return createMenuDto
     return 'ok'
   }
 
@@ -35,15 +36,15 @@ export class MenuController {
 
   @Patch(':id')
   @ApiOperation({ summary: '修改路由菜单' })
-  async update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    await this.menuService.update(+id, updateMenuDto)
+  async update(@Param('id') id: number, @Body() updateMenuDto: UpdateMenuDto) {
+    await this.menuService.update(id, updateMenuDto)
     return 'ok'
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除路由菜单' })
-  async remove(@Param('id') id: string) {
-    await this.menuService.remove(+id)
+  async remove(@Param('id') id: number) {
+    await this.menuService.remove(id)
     return 'ok'
   }
 }

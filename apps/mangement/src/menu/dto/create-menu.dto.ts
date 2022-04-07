@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator'
 
 export class CreateMenuDto {
   @ApiProperty({
@@ -6,12 +7,15 @@ export class CreateMenuDto {
     example: null,
     required: false
   })
+  @IsOptional()
+  @IsInt()
   readonly pid?: number
 
   @ApiProperty({
     description: '路由菜单名称，必填',
     example: '产品管理'
   })
+  @IsString()
   readonly name: string
 
   @ApiProperty({
@@ -20,6 +24,8 @@ export class CreateMenuDto {
     example: '1',
     required: false
   })
+  @IsOptional()
+  @IsEnum(['1', '2'])
   readonly type?: string
 
   @ApiProperty({
@@ -27,6 +33,8 @@ export class CreateMenuDto {
     example: '',
     required: false
   })
+  @IsOptional()
+  @IsString()
   readonly path?: string
 
   @ApiProperty({
@@ -34,6 +42,8 @@ export class CreateMenuDto {
     example: '',
     required: false
   })
+  @IsOptional()
+  @IsString()
   readonly icon?: string
 
   @ApiProperty({
@@ -41,6 +51,8 @@ export class CreateMenuDto {
     example: '',
     required: false
   })
+  @IsOptional()
+  @IsString()
   readonly component?: string
 
   @ApiProperty({
@@ -48,5 +60,7 @@ export class CreateMenuDto {
     example: 'create-product',
     required: false
   })
+  @IsOptional()
+  @IsString()
   readonly menu_code?: string
 }
