@@ -1,3 +1,5 @@
+import { HttpExceptionFilter } from '@libs/common/filter/http-exception.filter'
+import { WrapResponse } from '@libs/common/interceptors/wrap-response.interceptor.interceptor'
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { MangementModule } from './mangement.module'
@@ -12,6 +14,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options)
 
   SwaggerModule.setup('api-docs', app, document)
+  app.useGlobalFilters(new HttpExceptionFilter())
+  app.useGlobalInterceptors(new WrapResponse())
   await app.listen(PORT)
   console.log(`api接口文档请访问，http://localhost:${PORT}/api-docs`)
 }
