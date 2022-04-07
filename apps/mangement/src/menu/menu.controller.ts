@@ -1,0 +1,49 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query
+} from '@nestjs/common'
+import { MenuService } from './menu.service'
+import { CreateMenuDto } from './dto/create-menu.dto'
+import { UpdateMenuDto } from './dto/update-menu.dto'
+import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { PaginationQueryDto } from '@libs/common/dto/pagination-query.dto'
+
+@Controller('menu')
+@ApiTags('路由菜单')
+export class MenuController {
+  constructor(private readonly menuService: MenuService) {}
+
+  @Post()
+  @ApiOperation({ summary: '添加路由菜单' })
+  async create(@Body() createMenuDto: CreateMenuDto) {
+    await this.menuService.create(createMenuDto)
+    return 'ok'
+  }
+
+  @Get()
+  @ApiOperation({ summary: '获取路由菜单列表' })
+  async findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    const { query } = paginationQueryDto
+    return await this.menuService.findAll(query && query.trim())
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: '修改路由菜单' })
+  async update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
+    await this.menuService.update(+id, updateMenuDto)
+    return 'ok'
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: '删除路由菜单' })
+  async remove(@Param('id') id: string) {
+    await this.menuService.remove(+id)
+    return 'ok'
+  }
+}
