@@ -11,6 +11,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('商城后台管理系统API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build()
   const document = SwaggerModule.createDocument(app, options)
 

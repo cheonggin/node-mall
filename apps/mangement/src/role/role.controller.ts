@@ -6,16 +6,20 @@ import {
   Patch,
   Param,
   Delete,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common'
 import { RoleService } from './role.service'
 import { CreateRoleDto } from './dto/create-role.dto'
 import { UpdateRoleDto } from './dto/update-role.dto'
 import { PaginationQueryDto } from '@libs/common/dto/pagination-query.dto'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
+import { JwtAuthGuard } from '@libs/common/guards/jwt-auth.guard'
 
 @Controller('role')
 @ApiTags('角色')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 

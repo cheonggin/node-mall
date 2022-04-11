@@ -5,8 +5,7 @@ import { JwtService } from '@nestjs/jwt'
 import { ApiOperation } from '@nestjs/swagger'
 import { AuthService } from './auth/auth.service'
 import { LoginDto } from './auth/dto/login.dto'
-import { LocalAuthGuard } from './auth/guards/local-auth.guard'
-
+import { LocalAuthGuard } from '../../../libs/common/src/guards/local-auth.guard'
 @Controller()
 export class MangementController {
   constructor(
@@ -19,7 +18,7 @@ export class MangementController {
   @UseGuards(LocalAuthGuard)
   async login(@Body() loginDto: LoginDto, @CurrentUser() user: Admin) {
     // 生成token
-    const token = this.jwtService.sign(user)
+    const token = this.jwtService.sign({ id: user.id, name: user.name })
 
     return { user, token }
   }

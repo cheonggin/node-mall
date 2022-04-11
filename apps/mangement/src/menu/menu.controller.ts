@@ -6,16 +6,20 @@ import {
   Patch,
   Param,
   Delete,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common'
 import { MenuService } from './menu.service'
 import { CreateMenuDto } from './dto/create-menu.dto'
 import { UpdateMenuDto } from './dto/update-menu.dto'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { PaginationQueryDto } from '@libs/common/dto/pagination-query.dto'
+import { JwtAuthGuard } from '@libs/common/guards/jwt-auth.guard'
 
 @Controller('menu')
 @ApiTags('路由菜单')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
@@ -23,7 +27,6 @@ export class MenuController {
   @ApiOperation({ summary: '添加路由菜单' })
   async create(@Body() createMenuDto: CreateMenuDto) {
     await this.menuService.create(createMenuDto)
-    return createMenuDto
     return 'ok'
   }
 

@@ -2,7 +2,6 @@ import { DatabaseModule } from '@libs/database'
 import { Global, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
-import { CommonService } from './common.service'
 
 @Global()
 @Module({
@@ -14,7 +13,6 @@ import { CommonService } from './common.service'
       signOptions: { expiresIn: '1d' }
     })
   ],
-  providers: [CommonService],
-  exports: [CommonService, JwtModule]
+  exports: [JwtModule]
 })
 export class CommonModule {}
