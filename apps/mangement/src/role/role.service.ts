@@ -19,7 +19,6 @@ export class RoleService {
   }
 
   async findAll(paginationQueryDto: PaginationQueryDto) {
-    console.log(paginationQueryDto)
     const { offset, limit, query } = paginationQueryDto
     return await this.roleModel.findAndCountAll({
       limit,
