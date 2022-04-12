@@ -27,6 +27,7 @@ export class Menu extends Model<Menu> {
   @Column
   name: string
 
+  @AllowNull(false)
   @Column({
     type: DataType.ENUM,
     values: ['1', '2'],
