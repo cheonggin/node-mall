@@ -6,6 +6,7 @@ import { RoleModule } from './role/role.module'
 import { AdminModule } from './admin/admin.module'
 import { AuthModule } from './auth/auth.module'
 import { CategoryModule } from './category/category.module'
+import { GoodsModule } from './goods/goods.module'
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { CategoryModule } from './category/category.module'
     RoleModule,
     AdminModule,
     AuthModule,
-    CategoryModule
+    CategoryModule,
+    GoodsModule
   ],
   controllers: [MangementController]
 })
