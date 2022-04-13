@@ -17,5 +17,5 @@ export class PaginationQueryDto {
   @ApiProperty({ description: '查询参数', example: ' ', required: false })
   @IsOptional()
   @IsString()
-  readonly query?: string
+  query?: string
 }
