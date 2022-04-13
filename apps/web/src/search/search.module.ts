@@ -3,10 +3,9 @@ import { SearchService } from './search.service'
 import { SearchController } from './search.controller'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { Search } from './entities/search.entity'
-import { Goods } from '@libs/database/models/goods.model'
 
 @Module({
-  imports: [SequelizeModule.forFeature([Search, Goods])],
+  imports: [SequelizeModule.forFeature([Search])],
   controllers: [SearchController],
   providers: [SearchService]
 })
