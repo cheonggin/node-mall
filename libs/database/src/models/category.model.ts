@@ -1,7 +1,9 @@
+import { CategoryDetail } from 'apps/web/src/category/entities/category-detail.entity'
 import {
   AllowNull,
   AutoIncrement,
   Column,
+  HasMany,
   Model,
   PrimaryKey,
   Table
@@ -31,4 +33,7 @@ export class Category extends Model<Category> {
 
   @Column
   img_url: string
+
+  @HasMany(() => CategoryDetail)
+  category_products: CategoryDetail[]
 }
