@@ -1,8 +1,14 @@
+import { GoodsDetailBanner } from 'apps/web/src/goods/entities/goods-detail-banner.entity'
+import { GoodsDetailComment } from 'apps/web/src/goods/entities/goods-detail-comment.entity'
+import { GoodsDetailTab } from 'apps/web/src/goods/entities/goods-detail-tab.entity'
+import { GoodsDetail } from 'apps/web/src/goods/entities/goods-detail.entity'
 import {
   AllowNull,
   AutoIncrement,
   Column,
   DataType,
+  HasMany,
+  HasOne,
   Model,
   PrimaryKey,
   Table
@@ -44,4 +50,16 @@ export class Goods extends Model<Goods> {
 
   @Column({ type: DataType.JSON })
   class_parameters: any[]
+
+  @HasOne(() => GoodsDetail)
+  detail: GoodsDetail
+
+  @HasMany(() => GoodsDetailBanner)
+  bannerList: GoodsDetailBanner[]
+
+  @HasOne(() => GoodsDetailComment)
+  comment: GoodsDetailComment
+
+  @HasMany(() => GoodsDetailTab)
+  tabs: GoodsDetailTab[]
 }
