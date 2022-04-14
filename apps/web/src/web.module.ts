@@ -5,6 +5,7 @@ import { HomeModule } from './home/home.module'
 import { SearchModule } from './search/search.module'
 import { CategoryModule } from './category/category.module'
 import { GoodsModule } from './goods/goods.module'
+import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { GoodsModule } from './goods/goods.module'
     HomeModule,
     SearchModule,
     CategoryModule,
-    GoodsModule
+    GoodsModule,
+    UserModule
   ],
   controllers: [WebController]
 })
