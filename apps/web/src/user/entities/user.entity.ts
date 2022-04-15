@@ -29,4 +29,7 @@ export class User extends Model<User> {
   @AllowNull(false)
   @Column({ type: DataType.STRING })
   password: string
+
+  @Column({ type: DataType.STRING })
+  avatar_url: string
 }

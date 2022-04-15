@@ -14,4 +14,11 @@ export class UserService {
 
     return await this.userModel.create(createUserDto)
   }
+
+  async findOneByName(name: string) {
+    return await this.userModel.findOne({
+      where: { name },
+      attributes: { exclude: ['create_at', 'update_at'] }
+    })
+  }
 }
