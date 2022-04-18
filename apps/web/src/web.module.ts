@@ -7,6 +7,7 @@ import { CategoryModule } from './category/category.module'
 import { GoodsModule } from './goods/goods.module'
 import { UserModule } from './user/user.module'
 import { AuthModule } from './auth/auth.module'
+import { FileModule } from './file/file.module'
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { AuthModule } from './auth/auth.module'
     CategoryModule,
     GoodsModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    FileModule
   ],
   controllers: [WebController]
 })

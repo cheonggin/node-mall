@@ -1,38 +1,44 @@
 import {
   AllowNull,
   AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   Model,
   PrimaryKey,
-  Table,
-  Unique
+  Table
 } from 'sequelize-typescript'
+import { User } from '../../user/entities/user.entity'
 
 @Table({
-  tableName: 'user',
+  tableName: 'avatar',
   timestamps: true,
   createdAt: 'create_at',
   updatedAt: 'update_at'
 })
-export class User extends Model<User> {
+export class Avatar extends Model<Avatar> {
   @PrimaryKey
   @AutoIncrement
   @Column({ type: DataType.INTEGER })
   id: number
 
   @AllowNull(false)
-  @Unique
   @Column({ type: DataType.STRING })
-  name: string
+  filename: string
+
+  @AllowNull(false)
+  @Column({ type: DataType.INTEGER })
+  size: number
 
   @AllowNull(false)
   @Column({ type: DataType.STRING })
-  password: string
+  mimetype: string
 
-  @Column({
-    type: DataType.STRING,
-    defaultValue: 'https://img.zhanggin.work/default.jpeg'
-  })
-  avatar_url: string
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER })
+  user_id: number
+
+  @BelongsTo(() => User)
+  user: User
 }

@@ -21,4 +21,8 @@ export class UserService {
       attributes: { exclude: ['create_at', 'update_at'] }
     })
   }
+
+  async updateAvatarByUserId(id: number, avatar_url: string) {
+    return await this.userModel.update({ avatar_url }, { where: { id } })
+  }
 }
