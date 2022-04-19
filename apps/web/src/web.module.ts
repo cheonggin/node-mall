@@ -8,6 +8,7 @@ import { GoodsModule } from './goods/goods.module'
 import { UserModule } from './user/user.module'
 import { AuthModule } from './auth/auth.module'
 import { FileModule } from './file/file.module'
+import { AddressModule } from './address/address.module'
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { FileModule } from './file/file.module'
     GoodsModule,
     UserModule,
     AuthModule,
-    FileModule
+    FileModule,
+    AddressModule
   ],
   controllers: [WebController]
 })
