@@ -50,9 +50,19 @@ export class CartController {
     return this.cartService.update(updateCartDto, product_id, user.id)
   }
 
-  @Delete(':product_id')
-  @ApiOperation({ summary: '通过产品id删除购物车数据' })
-  remove(@Param('product_id') product_id: number, @CurrentUser() user: User) {
-    return this.cartService.remove(product_id, user.id)
+  @Delete(':product_ids')
+  @ApiOperation({
+    summary:
+      '通过产品id删除购物车数据，id为字符串类型，若删除多个则以逗号隔开，如：1,2,3'
+  })
+  async remove(
+    @Param('product_ids') product_ids: string,
+    @CurrentUser() user: User
+  ) {
+    const idStr = product_ids.split(',')
+    const ids = idStr.map(item => parseInt(item))
+    await this.cartService.remove(ids, user.id)
+
+    return 'ok'
   }
 }

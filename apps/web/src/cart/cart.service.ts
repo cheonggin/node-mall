@@ -1,6 +1,7 @@
 import { Goods } from '@libs/database/models/goods.model'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
+import { Op } from 'sequelize'
 import { CreateCartDto } from './dto/create-cart.dto'
 import { UpdateCartDto } from './dto/update-cart.dto'
 import { Cart } from './entities/cart.entity'
@@ -43,7 +44,14 @@ export class CartService {
     })
   }
 
-  async remove(product_id: number, user_id: number) {
-    return await this.cartModel.destroy({ where: { user_id, product_id } })
+  async remove(product_ids: number[], user_id: number) {
+    return await this.cartModel.destroy({
+      where: {
+        user_id,
+        product_id: {
+          [Op.in]: product_ids
+        }
+      }
+    })
   }
 }
