@@ -29,31 +29,19 @@ export class CartController {
     @Body() createCartDto: CreateCartDto,
     @CurrentUser() user: User
   ) {
-    // 查找之前是否已添加该产品，若已添加则修改count的值，若未添加则直接添加
-    const result = await this.cartService.findOneByProductId(
-      createCartDto.product_id,
-      user.id
-    )
-    if (result) {
-      createCartDto.count = result.count + createCartDto.count
-      await this.cartService.update(
-        createCartDto,
-        createCartDto.product_id,
-        user.id
-      )
-    } else {
-      await this.cartService.create(createCartDto, user.id)
-    }
+    await this.cartService.create(createCartDto, user.id)
 
     return 'ok'
   }
 
   @Get()
+  @ApiOperation({ summary: '获取购物车列表' })
   async findAll(@CurrentUser() user: User) {
     return await this.cartService.findAll(user.id)
   }
 
   @Patch(':product_id')
+  @ApiOperation({ summary: '通过产品id修改购物车数据' })
   update(
     @Param('product_id') product_id: number,
     @Body() updateCartDto: UpdateCartDto,
@@ -63,6 +51,7 @@ export class CartController {
   }
 
   @Delete(':product_id')
+  @ApiOperation({ summary: '通过产品id删除购物车数据' })
   remove(@Param('product_id') product_id: number, @CurrentUser() user: User) {
     return this.cartService.remove(product_id, user.id)
   }
