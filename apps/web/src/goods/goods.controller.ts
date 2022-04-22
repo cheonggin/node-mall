@@ -17,9 +17,11 @@ export class GoodsController {
   @Get(':id')
   @ApiOperation({ summary: '根据id获取产品详情' })
   async getGoodsInfo(@Param('id') id: number) {
-    const { bannerList, detail, comment, tabs } =
-      await this.goodsService.findOne(id)
+    const result = await this.goodsService.findOne(id)
+    const { bannerList, detail, comment, tabs, ...product } = result.get({
+      plain: true
+    })
 
-    return { bannerList, detail, comment, tabs }
+    return { bannerList, detail, comment, tabs, product }
   }
 }

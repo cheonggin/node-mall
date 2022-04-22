@@ -57,8 +57,8 @@ export class GoodsService {
           model: this.goodsTabModel,
           attributes: { exclude: ['create_at', 'update_at', 'product_id'] }
         }
-      ]
-      // attributes: { exclude: ['create_at', 'update_at'] }
+      ],
+      attributes: { exclude: ['create_at', 'update_at'] }
     })
   }
 }
