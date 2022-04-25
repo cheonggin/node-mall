@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module'
 import { FileModule } from './file/file.module'
 import { AddressModule } from './address/address.module'
 import { CartModule } from './cart/cart.module'
+import { OrderModule } from './order/order.module'
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CartModule } from './cart/cart.module'
     AuthModule,
     FileModule,
     AddressModule,
-    CartModule
+    CartModule,
+    OrderModule
   ],
   controllers: [WebController]
 })
