@@ -23,6 +23,13 @@ export class OrderService {
     return await this.orderGoodsModel.bulkCreate(createOrderGoodsDto)
   }
 
+  async updateOrderPayStatus(order_number: string) {
+    return await this.orderModel.update(
+      { pay_status: 1 },
+      { where: { order_number } }
+    )
+  }
+
   async findAll() {
     return 'ok'
   }

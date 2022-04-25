@@ -9,6 +9,7 @@ import { Goods } from '@libs/database/models/goods.model'
 @Module({
   imports: [SequelizeModule.forFeature([Order, OrderGoods, Goods])],
   controllers: [OrderController],
-  providers: [OrderService]
+  providers: [OrderService],
+  exports: [OrderService]
 })
 export class OrderModule {}
