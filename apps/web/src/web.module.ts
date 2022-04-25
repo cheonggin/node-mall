@@ -11,6 +11,7 @@ import { FileModule } from './file/file.module'
 import { AddressModule } from './address/address.module'
 import { CartModule } from './cart/cart.module'
 import { OrderModule } from './order/order.module'
+import { PaymentModule } from './payment/payment.module'
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { OrderModule } from './order/order.module'
     FileModule,
     AddressModule,
     CartModule,
-    OrderModule
+    OrderModule,
+    PaymentModule
   ],
   controllers: [WebController]
 })
