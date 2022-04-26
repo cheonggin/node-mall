@@ -30,15 +30,26 @@ export class OrderService {
     )
   }
 
-  async findAll() {
-    return 'ok'
-  }
-
-  async findOne() {
-    return 'ok'
-  }
-
-  async remove() {
-    return 'ok'
+  async findAll(user_id: number) {
+    return await this.orderModel.findAll({
+      where: { user_id },
+      include: [
+        {
+          model: this.orderGoodsModel,
+          attributes: {
+            exclude: ['create_at', 'update_at', 'order_id', 'product_id']
+          },
+          include: [
+            {
+              model: this.goodsModel,
+              attributes: { exclude: ['create_at', 'update_at'] }
+            }
+          ]
+        }
+      ],
+      attributes: {
+        exclude: ['update_at', 'address_id', 'user_id']
+      }
+    })
   }
 }

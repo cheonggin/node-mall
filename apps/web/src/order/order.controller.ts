@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common'
+import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common'
 import { OrderService } from './order.service'
 import { BodyDto } from './dto/create-order.dto'
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
@@ -35,19 +35,11 @@ export class OrderController {
     return { order_id: orderResult.id, order_number: orderResult.order_number }
   }
 
-  // @Get(':id')
-  // @ApiOperation({ summary: '根据订单id获取订单信息' })
-  // async findOne(@Param('id') id: number, @CurrentUser() user: User) {
-  //   return await this.orderService.findOne(id, user.id)
-  // }
-
-  // @Delete(':id')
-  // @ApiOperation({ summary: '根据订单id删除订单' })
-  // async remove(@Param('id') id: number, @CurrentUser() user: User) {
-  //   await this.orderService.remove(id, user.id)
-
-  //   return 'ok'
-  // }
+  @Get()
+  @ApiOperation({ summary: '获取用户所有订单列表' })
+  async findAll(@CurrentUser() user: User) {
+    return await this.orderService.findAll(user.id)
+  }
 
   // 生成订单号order_id，规则：时间戳 + 6为随机数
   private generateOrderNumber() {

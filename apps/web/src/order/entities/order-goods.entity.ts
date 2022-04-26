@@ -40,5 +40,5 @@ export class OrderGoods extends Model<OrderGoods> {
   product_id: number
 
   @BelongsTo(() => Goods)
-  product: Goods
+  product: [Goods]
 }

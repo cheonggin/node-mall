@@ -52,5 +52,5 @@ export class Order extends Model<Order> {
   address: Address
 
   @HasMany(() => OrderGoods)
-  select_list: [OrderGoods]
+  goodsList: [OrderGoods]
 }
