@@ -18,6 +18,10 @@ jobs:
         with:
           persist-credentials: false
 
+    # 生成静态文件
+      - name: Build
+        run: npm install && nest build && nest build web
+
       # 部署到服务器
       - name: Deploy To Server
         uses: easingthemes/ssh-deploy@main
