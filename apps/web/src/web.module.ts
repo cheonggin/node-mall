@@ -1,5 +1,7 @@
+import { join } from 'path'
 import { CommonModule } from '@libs/common'
 import { Module } from '@nestjs/common'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { WebController } from './web.controller'
 import { HomeModule } from './home/home.module'
 import { SearchModule } from './search/search.module'
@@ -15,6 +17,9 @@ import { PaymentModule } from './payment/payment.module'
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public/web')
+    }),
     CommonModule,
     HomeModule,
     SearchModule,
