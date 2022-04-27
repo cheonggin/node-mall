@@ -1,6 +1,19 @@
 import { Module } from '@nestjs/common'
 import { SequelizeModule } from '@nestjs/sequelize'
+import { CategoryDetail } from 'apps/web/src/category/entities/category-detail.entity'
+import { GoodsDetailBanner } from 'apps/web/src/goods/entities/goods-detail-banner.entity'
+import { GoodsDetailComment } from 'apps/web/src/goods/entities/goods-detail-comment.entity'
+import { GoodsDetailTab } from 'apps/web/src/goods/entities/goods-detail-tab.entity'
+import { GoodsDetail } from 'apps/web/src/goods/entities/goods-detail.entity'
 import { DatabaseService } from './database.service'
+
+const models = SequelizeModule.forFeature([
+  CategoryDetail,
+  GoodsDetailBanner,
+  GoodsDetailComment,
+  GoodsDetailTab,
+  GoodsDetail
+])
 
 @Module({
   imports: [
@@ -17,9 +30,10 @@ import { DatabaseService } from './database.service'
           synchronize: true
         }
       }
-    })
+    }),
+    models
   ],
   providers: [DatabaseService],
-  exports: [DatabaseService]
+  exports: [DatabaseService, models]
 })
 export class DatabaseModule {}
