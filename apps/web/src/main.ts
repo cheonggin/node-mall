@@ -21,11 +21,6 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter())
   app.useGlobalInterceptors(new WrapResponse())
 
-  // 访问静态资源文件
-  app.useStaticAssets('upload', {
-    prefix: '/upload/'
-  })
-
   await app.listen(PORT)
   console.log(`api接口文档请访问，http://localhost:${PORT}/api-docs`)
 }
