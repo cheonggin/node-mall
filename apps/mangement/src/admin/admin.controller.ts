@@ -27,11 +27,13 @@ export class AdminController {
   @Post()
   @ApiOperation({ summary: '添加管理员' })
   async create(@Body() createAdminDto: CreateAdminDto) {
-    try {
-      await this.adminService.create(createAdminDto)
-    } catch (error) {
-      throw new BadRequestException(error.message)
+    // 判断该用户之前是否已注册
+    const admin = await this.adminService.findOneByName(createAdminDto.name)
+    if (admin) {
+      throw new BadRequestException('用户已注册')
     }
+
+    await this.adminService.create(createAdminDto)
     return 'ok'
   }
 

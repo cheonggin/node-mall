@@ -1,4 +1,11 @@
-import { Controller, Post, Body, UseGuards, Patch } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Patch,
+  BadRequestException
+} from '@nestjs/common'
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { UserService } from './user.service'
 import { CreateUserDto } from './dto/create-user.dto'
@@ -15,6 +22,12 @@ export class UserController {
   @Post('register')
   @ApiOperation({ summary: '注册用户' })
   async create(@Body() createUserDto: CreateUserDto) {
+    // 判断该用户之前是否已注册
+    const user = await this.userService.findOneByName(createUserDto.name)
+    if (user) {
+      throw new BadRequestException({ code: -1, message: '用户已存在' })
+    }
+
     await this.userService.create(createUserDto)
     return 'ok'
   }
