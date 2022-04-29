@@ -18,8 +18,6 @@ import { FileUploadDto } from './dto/file-upload.dto'
 import { JwtAuthGuard } from '@libs/common/guards/jwt-auth.guard'
 import * as COS from 'cos-nodejs-sdk-v5'
 import { UserService } from '../user/user.service'
-import { CurrentUser } from '@libs/common/decorators/current-user.decorator'
-import { User } from '../user/entities/user.entity'
 
 const cos = new COS({
   SecretId: process.env.SECRET_ID,
@@ -44,8 +42,7 @@ export class FileController {
   @UseGuards(JwtAuthGuard)
   async uploadAvatar(
     @Body() fileUploadDto: FileUploadDto,
-    @UploadedFile() file: Express.Multer.File,
-    @CurrentUser() user: User
+    @UploadedFile() file: Express.Multer.File
   ) {
     const extName = file.originalname.split('.').pop()
     const newFileName = Date.now() + '.' + extName
@@ -57,9 +54,6 @@ export class FileController {
       Body: file.buffer
     })
     const url = `https://${Location}`
-
-    // 更新用户的avatar_url
-    await this.userService.updateAvatarByUserId(user.id, url)
 
     return { url }
   }
