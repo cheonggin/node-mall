@@ -14,12 +14,9 @@ export class HttpExceptionFilter<T extends HttpException>
     const ctx = host.switchToHttp() // 获取请求上下文
     const response = ctx.getResponse<Response>() // 获取请求上下文中的response对象
     const status = exception.getStatus()
-    const exceptionResponse = exception.getResponse()
-    const error =
-      typeof response === 'string'
-        ? { message: exceptionResponse }
-        : (exceptionResponse as object)
+    // 用于接收主动发错的错误信息
+    const { code, message } = exception.getResponse() as any
 
-    response.status(status).json({ code: -1, msg: error })
+    response.status(status).json({ code: code || status, msg: message })
   }
 }
