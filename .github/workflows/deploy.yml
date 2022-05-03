@@ -55,7 +55,9 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            sudo cp /workspace/.env /workspace/mall
+            rm -rf /workspace/mall/public
+            cp /workspace/.env /workspace/mall
+            cp -r /workspace/public /workspace/mall/apps/
             cd /workspace/mall
             sudo npm i
             pm2 restart all
