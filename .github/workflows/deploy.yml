@@ -59,5 +59,6 @@ jobs:
             cp /workspace/.env /workspace/mall
             cp -r /workspace/public /workspace/mall/apps/
             cd /workspace/mall
-            sudo npm i
-            pm2 restart all
+            npm i
+            pm2 start /workspace/mall/apps/mangement/main.js
+            pm2 start /workspace/mall/apps/web/main.js
