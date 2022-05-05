@@ -24,7 +24,7 @@ export class PaymentController {
     formData.setMethod('get')
 
     // 支付成功或者失败跳转的链接
-    formData.addField('returnUrl', 'http://localhost:8080/#/payment')
+    formData.addField('returnUrl', 'https://mi.zhanggin.work/#/payment')
     formData.addField('bizContent', {
       outTradeNo: createPaymentDto.order_number,
       productCode: 'FAST_INSTANT_TRADE_PAY',
