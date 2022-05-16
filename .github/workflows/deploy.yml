@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           password: ${{ secrets.REMOTE_PASSWORD }}
           port: ${{ secrets.REMOTE_PORT }}
-          source: "package.json"
+          source: 'package.json'
           target: ${{ secrets.TARGET }}
           overwrite: true
 
@@ -60,5 +60,6 @@ jobs:
             cp -r /workspace/public /workspace/mall/apps/
             cd /workspace/mall
             npm i
+            pm2 delete all
             pm2 start /workspace/mall/apps/mangement/main.js
             pm2 start /workspace/mall/apps/web/main.js
