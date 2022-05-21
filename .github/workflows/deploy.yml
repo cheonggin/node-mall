@@ -60,6 +60,8 @@ jobs:
             cp -r /workspace/public /workspace/mall/apps/
             cd /workspace/mall
             npm i
-            pm2 delete all
-            pm2 start /workspace/mall/apps/mangement/main.js
-            pm2 start /workspace/mall/apps/web/main.js
+            pm2 delete mangement
+            pm2 delete web
+            pm2 start /workspace/mall/apps/mangement/main.js --name=mangement
+            pm2 start /workspace/mall/apps/web/main.js --name=web
+            pm2 save
