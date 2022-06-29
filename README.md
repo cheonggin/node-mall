@@ -11,7 +11,10 @@
 
 # 数据导入
 
-将根目录下的`.sql`文件导入到数据库中
+将`.sql`文件导入到数据库中。sql 文件下载地址：
+
+> 「my_mimall.sql」https://www.aliyundrive.com/s/xVbwJD5Tcdi 提取码: mm40
+> 点击链接保存，或者复制本段内容，打开「阿里云盘」APP ，无需下载极速在线查看，视频原画倍速播放。
 
 # 项目启动
 
